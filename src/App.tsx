@@ -16,7 +16,8 @@ function timeToMinutes(time: string) {
 function App() {
   const [data, setData] = useState<TimeItem | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date(Date.now() + (new Date().getTimezoneOffset() * 60000)))
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState<number>(0)
+  const [time, setTime] = useState<number>(0)
 
   useEffect(() => {
     fetch('/data.json')
@@ -24,7 +25,9 @@ function App() {
       .then((data: TimeItem) => {
         setData(data);
         const offset = moment.tz(data.timezone).utcOffset() + timeToMinutes(data.time)
+        const time = timeToMinutes(data.time)
         setOffset(offset)
+        setTime(time)
       });
   }, []);
 
@@ -50,7 +53,8 @@ function App() {
       </div>
       {data && (
         <div className="data-display">
-          <p>{data.timezone}-{data.time}</p>
+          <p>{data.timezone}{time / 60 >= 0 ? `+${time / 60}` : time / 60}</p>
+          <p>UTC{offset >= 0 ? `+${offset / 60}` : offset / 60}</p>
         </div>
       )}
     </>
