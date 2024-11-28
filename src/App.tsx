@@ -53,7 +53,7 @@ function App() {
       {data && (
         <div className="data-display">
           <p>{data.timezone}{time / 60 >= 0 ? `+${time / 60}` : time / 60}</p>
-          <p>UTC{offset >= 0 ? `+${offset / 60}` : offset / 60}</p>
+          <p>UTC{(offset + time) / 60 >= 0 ? `+${(offset + time) / 60}` : (offset + time) / 60}</p>
         </div>
       )}
     </>
