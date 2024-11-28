@@ -33,3 +33,9 @@ npm install
 4. Deploy or start the application using your preferred method
 
 5. Show off this site to your friends and say something like "I'll be there at WST 3 o'clock!"
+
+## Sample
+
+As a sample, I will publicly share my WST.
+
+[https://wst.drsz.org/index.html](https://wst.drsz.org/index.html)

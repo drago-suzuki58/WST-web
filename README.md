@@ -33,3 +33,9 @@ npm install
 4. お好みの方法でデプロイや起動をしてください
 
 5. 友人に「WST3時に行くわ～」とでも言ってこのサイトを見せびらかしましょう！
+
+## サンプル
+
+サンプルとして私のWSTを大公開しておきます
+
+[https://wst.drsz.org/index.html](https://wst.drsz.org/index.html)
