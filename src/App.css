@@ -40,3 +40,19 @@
 .read-the-docs {
   color: #888;
 }
+
+.time-display {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #e4e4e4;
+  margin-bottom: 1rem;
+  font-family: 'Roboto Mono', monospace; /* 等幅フォントを適用 */
+}
+
+.data-display {
+  font-size: 1.8rem;
+  color: #e4e4e4;
+  padding: 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}

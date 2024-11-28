@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import moment from 'moment-timezone'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 interface TimeItem {
@@ -16,7 +14,6 @@ function timeToMinutes(time: string) {
 }
 
 function App() {
-  const [count, setCount] = useState(0)
   const [data, setData] = useState<TimeItem | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date(Date.now() + (new Date().getTimezoneOffset() * 60000)))
   const [offset, setOffset] = useState(0)
@@ -48,31 +45,11 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
+      <div className="time-display">
         <h2>{formatTimeWithOffset(currentTime, offset / 60)}</h2>
       </div>
       {data && (
-        <div>
+        <div className="data-display">
           <p>{data.timezone}-{data.time}</p>
         </div>
       )}
