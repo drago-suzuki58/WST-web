@@ -13,9 +13,9 @@ function timeToMinutes(time: string) {
   return hours * 60 + minutes;
 }
 
-function calcFormattedTime(offset: number): string {
+function calcFormattedTime(offset: number, baseTime: number): string {
   const utc = moment.utc();
-  const calculatedTime = utc.add(offset, 'minutes');
+  const calculatedTime = utc.add(offset - baseTime, 'minutes');
   return calculatedTime.format('YYYY/MM/DD HH:mm:ss');
 }
 
@@ -30,20 +30,20 @@ function App() {
       .then((response) => response.json())
       .then((data: TimeItem) => {
         setData(data);
-        const offset = moment.tz(data.timezone).utcOffset() + timeToMinutes(data.time)
+        const offset = moment.tz(data.timezone).utcOffset()
         const time = timeToMinutes(data.time)
         setOffset(offset)
         setTime(time)
-        setFormattedTime(calcFormattedTime(offset))
+        setFormattedTime(calcFormattedTime(offset, time))
       });
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFormattedTime(calcFormattedTime(offset))
+      setFormattedTime(calcFormattedTime(offset, time))
     }, 1000)
     return () => clearInterval(interval)
-  }, [offset])
+  }, [offset, time])
 
   return (
     <>
