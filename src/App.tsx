@@ -13,11 +13,17 @@ function timeToMinutes(time: string) {
   return hours * 60 + minutes;
 }
 
+function calcFormattedTime(offset: number): string {
+  const utc = moment.utc();
+  const calculatedTime = utc.add(offset, 'minutes');
+  return calculatedTime.format('YYYY/MM/DD HH:mm:ss');
+}
+
 function App() {
   const [data, setData] = useState<TimeItem | null>(null);
-  const [currentTime, setCurrentTime] = useState(new Date(Date.now() + (new Date().getTimezoneOffset() * 60000)))
   const [offset, setOffset] = useState<number>(0)
   const [time, setTime] = useState<number>(0)
+  const [formattedTime, setFormattedTime] = useState<string>('Initializing...')
 
   useEffect(() => {
     fetch('/data.json')
@@ -28,28 +34,21 @@ function App() {
         const time = timeToMinutes(data.time)
         setOffset(offset)
         setTime(time)
+        setFormattedTime(calcFormattedTime(offset))
       });
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const utc = new Date(Date.now() + (new Date().getTimezoneOffset() * 60000))
-      const newTime = new Date(utc.getTime() + (60000 * offset))
-      setCurrentTime(newTime)
-    }, 50)
+      setFormattedTime(calcFormattedTime(offset))
+    }, 1000)
     return () => clearInterval(interval)
   }, [offset])
-
-  const formatTimeWithOffset = (date: Date, offset: number) => {
-    const utc = date.getTime() + (date.getTimezoneOffset() * 60000)
-    const newDate = new Date(utc + (60000 * offset))
-    return newDate.toLocaleString();
-  }
 
   return (
     <>
       <div className="time-display">
-        <h2>{formatTimeWithOffset(currentTime, offset / 60)}</h2>
+        <h2>{formattedTime}</h2>
       </div>
       {data && (
         <div className="data-display">
