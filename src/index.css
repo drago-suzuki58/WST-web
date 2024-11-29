@@ -50,6 +50,7 @@ footer {
   position: absolute;
   bottom: 0;
   background-color: #131824;
+  margin-top: auto;
 }
 
 footer a {

@@ -19,7 +19,7 @@
   font-weight: bold;
   color: #e4e4e4;
   margin-bottom: 1rem;
-  font-family: 'Roboto Mono', monospace; /* 等幅フォントを適用 */
+  font-family: 'Roboto Mono', monospace;
 }
 
 .data-display {
@@ -28,4 +28,44 @@
   padding: 1rem;
   border-radius: 8px;
   display: inline-block;
+}
+
+@media (max-width: 975px) {
+  .time-display {
+    font-size: 3rem;
+  }
+  .data-display {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 748px) {
+  .time-display {
+    font-size: 2rem;
+  }
+  .data-display {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .time-display {
+    font-size: 3rem;
+  }
+  .data-display {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-height: 570px) {
+  .time-display {
+    font-size: 2rem;
+  }
+  .data-display {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
