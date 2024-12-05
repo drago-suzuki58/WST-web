@@ -18,6 +18,17 @@ function calcFormattedTime(offset: number, baseTime: number): string {
   const calculatedTime = utc.add(offset - baseTime, 'minutes');
   return calculatedTime.format('YYYY/MM/DD HH:mm:ss');
 }
+function utcToLocalTimezone(offset: number): string {
+  const timezones = ["WET", "CET", "EET", "EAT", "GST", "UZT", "KGT", "ICT", "HKT", "JST", "AEST", "MAGT", "NZST", "TOT", "HAST", "AKST", "PT", "MST", "CST", "EST", "AST", "BRT", "FNT", "CVT"]
+
+  while (offset < 0) {
+    offset += 1440;
+  }
+  const normalizedOffset = (offset / 60) % 24;
+  const roundedOffset = Math.round(normalizedOffset);
+  const fractionalOffset = normalizedOffset - roundedOffset;
+  return `${timezones[roundedOffset]}${fractionalOffset >= 0 ? `+${fractionalOffset.toFixed(2)}` : fractionalOffset.toFixed(2)}`;
+}
 
 function App() {
   const [data, setData] = useState<TimeItem | null>(null);
@@ -52,8 +63,9 @@ function App() {
       </div>
       {data && (
         <div className="data-display">
-          <p>{data.timezone}{time / 60 >= 0 ? `+${time / 60}` : time / 60}</p>
-          <p>UTC{(offset + time) / 60 >= 0 ? `+${(offset + time) / 60}` : (offset + time) / 60}</p>
+          <p>{moment.tz(data.timezone).format('z')} | {data.timezone}{time / 60 >= 0 ? `+${(time / 60).toFixed(2)}` : (time / 60).toFixed(2)}</p>
+          <p>UTC{(offset + time) / 60 >= 0 ? `+${((offset + time) / 60).toFixed(2)}` : ((offset + time) / 60).toFixed(2)}</p>
+          <p>{utcToLocalTimezone(offset + time)}</p>
         </div>
       )}
     </>
