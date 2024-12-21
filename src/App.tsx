@@ -35,6 +35,7 @@ function App() {
   const [offset, setOffset] = useState<number>(0)
   const [time, setTime] = useState<number>(0)
   const [formattedTime, setFormattedTime] = useState<string>('Initializing...')
+  const [userTime, setUserTime] = useState<string>('Initializing...');
 
   useEffect(() => {
     fetch('/data.json')
@@ -46,12 +47,14 @@ function App() {
         setOffset(offset)
         setTime(time)
         setFormattedTime(calcFormattedTime(offset, time))
+        setUserTime(moment.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY/MM/DD HH:mm:ss'));
       });
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setFormattedTime(calcFormattedTime(offset, time))
+      setUserTime(moment.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('YYYY/MM/DD HH:mm:ss'));
     }, 1000)
     return () => clearInterval(interval)
   }, [offset, time])
@@ -60,6 +63,7 @@ function App() {
     <>
       <div className="time-display">
         <h2>{formattedTime}</h2>
+        <p>Your local time: {userTime}</p>
       </div>
       {data && (
         <div className="data-display">
